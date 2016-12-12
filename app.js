@@ -77,7 +77,21 @@ function renderStartPage(state){
 
 function renderQuizPage(state){
   $('.quiz').submit(function(event){
+  	console.log("clicked");
   	event.preventDefault();
+  	if (
+  		$('input:checked') === state.questions.correctAnswer){
+  		console.log("we made it here");
+  		$('input:checked label').addClass('right');
+  	} else {
+  		$('input:checked label').addClass('wrong');
+  		$()
+  	}
+
+
+
+
+
   		state.questionNumber = Math.floor(Math.random() * 10);
   while (state.questionsUsed.indexOf(state.questionNumber)!==-1){
   	state.questionNumber = Math.floor(Math.random() * 10);
