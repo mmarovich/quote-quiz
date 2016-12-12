@@ -28,3 +28,11 @@ input[type="radio"] {
 .hidden {
 	display: none;
 }
+
+.right {
+	background-color: green;
+}
+
+.wrong {
+	background-color: red;
+}
