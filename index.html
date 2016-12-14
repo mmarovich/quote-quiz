@@ -25,12 +25,13 @@
     </div>
     <form class="quiz hidden">
         <div class="question"><p></p></div>
-        <input id="radio1" type="radio" name="choices" required><label for="radio1"></label></input>
-        <input id="radio2" type="radio" name="choices" required><label for="radio2"></label></input>
-        <input id="radio3" type="radio" name="choices" required><label for="radio3"></label></input>
-        <input id="radio4" type="radio" name="choices" required><label for="radio4"></label></input>
-        <input type="submit" name="isItRight"></input>
+        <input id="radio1" type="radio" name="choices" value="0" required><label for="radio1"></label></input>
+        <input id="radio2" type="radio" name="choices" value="1" required><label for="radio2"></label></input>
+        <input id="radio3" type="radio" name="choices" value="2" required><label for="radio3"></label></input>
+        <input id="radio4" type="radio" name="choices" value="3" required><label for="radio4"></label></input>
+        <input type="submit" class="submit" name="isItRight"></input>
     </form>
+    <button class="next hidden" type="next">Next</button>
   </main>
 
   <script src="https://code.jquery.com/jquery-3.1.0.js"></script>

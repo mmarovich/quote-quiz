@@ -63,7 +63,22 @@ function renderApp(state){
 		renderStartPage(state);
 	} else if (state.route === "quiz"){
 		renderQuizPage(state);
+	} else if (state.route === "answered"){
+		answered();
 	}
+}
+
+function nextQuestion(state){
+	state.questionNumber = Math.floor(Math.random() * 10);
+	while (state.questionsUsed.indexOf(state.questionNumber)!==-1){
+  	state.questionNumber = Math.floor(Math.random() * 10);
+  }
+	$('.question').html(state.questions[state.questionNumber].text);
+  	$('label[for=radio1]').html(state.questions[state.questionNumber].choices[0]);
+  	$('label[for=radio2]').html(state.questions[state.questionNumber].choices[1]);
+  	$('label[for=radio3]').html(state.questions[state.questionNumber].choices[2]);
+  	$('label[for=radio4]').html(state.questions[state.questionNumber].choices[3]);
+  	state.questionsUsed.push(state.questionNumber);
 }
 
 function renderStartPage(state){
@@ -75,44 +90,31 @@ function renderStartPage(state){
 	})
 }
 
-function renderQuizPage(state){
-  $('.quiz').submit(function(event){
-  	console.log("clicked");
-  	event.preventDefault();
-  	if (
-  		$('input:checked') === state.questions.correctAnswer){
-  		console.log("we made it here");
-  		$('input:checked label').addClass('right');
-  	} else {
-  		$('input:checked label').addClass('wrong');
-  		$()
-  	}
-
-
-
-
-
-  		state.questionNumber = Math.floor(Math.random() * 10);
-  while (state.questionsUsed.indexOf(state.questionNumber)!==-1){
-  	state.questionNumber = Math.floor(Math.random() * 10);
-  }
-  $('.question').html(state.questions[state.questionNumber].text);
-  $('label[for=radio1]').html(state.questions[state.questionNumber].choices[0]);
-  $('label[for=radio2]').html(state.questions[state.questionNumber].choices[1]);
-  $('label[for=radio3]').html(state.questions[state.questionNumber].choices[2]);
-  $('label[for=radio4]').html(state.questions[state.questionNumber].choices[3]);
-  state.questionsUsed.push(state.questionNumber);
-  })
-  state.questionNumber = Math.floor(Math.random() * 10);
-  while (state.questionsUsed.indexOf(state.questionNumber)!==-1){
-  	state.questionNumber = Math.floor(Math.random() * 10);
-  }
-  $('.question').html(state.questions[state.questionNumber].text);
-  $('label[for=radio1]').html(state.questions[state.questionNumber].choices[0]);
-  $('label[for=radio2]').html(state.questions[state.questionNumber].choices[1]);
-  $('label[for=radio3]').html(state.questions[state.questionNumber].choices[2]);
-  $('label[for=radio4]').html(state.questions[state.questionNumber].choices[3]);
-  state.questionsUsed.push(state.questionNumber);
+function answered(){
+	$('next').click(function(event){
+		route.state = "quiz";
+		nextQuestion(state);
+		$('next').addClass('hidden');
+		$('submit').removeClass('hidden');
+		renderApp(state);
+	})
 }
+
+function renderQuizPage(state){
+	nextQuestion(state);
+	$('.quiz').submit(function(event){
+		event.preventDefault();
+		state.route = "answered";
+		var label = $('input:checked').attr('id');
+		if (parseInt($('input:checked').val()) !== state.questions[state.questionNumber].correctAnswer){
+			$('label[for='+label).addClass('wrong');
+		} else {
+			$('label[for='+label).addClass('right');
+		}
+		$('.submit').addClass('hidden');
+		$('.next').removeClass('hidden');
+		renderApp(state);
+	});
+};
 renderApp(state);
 });
