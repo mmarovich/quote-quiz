@@ -3,37 +3,44 @@ var state = {
 	{
 		text:"Life moves pretty fast.  If you don't stop and look around once in awhile, you could miss it.",
 		choices:["Real Genius", "Ferris Beuller's Day Off", "Fast and Furious", "Ghost Busters"],
-		correctAnswer: 1
+		correctAnswer: 1,
+		image: "images/ferris-bueller.gif"
 	},
 	{
 		text:"If we're going to be damned, let's be damned for what we really are",
 		choices: ["Braveheart", "House of 1000 corpses", "The Walking Dead", "Star Trek; The Next Generation"],
-		correctAnswer: 3
+		correctAnswer: 3,
+		image: "images/Jean-Luc-Picard.jpg"
 	},
 	{
 		text:"It's easy to confuse 'what is' with 'what ought to be,' especially when 'what is' has worked out in your favor.",
 		choices: ["Orange is the New Black", "12 Years A Slave", "The Wolf of Wall Street", "Game of Thrones"],
-		correctAnswer: 3
+		correctAnswer: 3,
+		image: "images/Tyrion-Lannister.jpg-large"
 	},
 	{
 		text:"Hello.  My name is Inigo Montoya.  You killed my father.  Prepare to die.",
 		choices:["The Princess Bride", "The Three Musketeers", "Braveheart", "Hannibal"],
-		correctAnswer: 0
+		correctAnswer: 0,
+		image: "images/inigo-montoya.gif"
 	},
 	{
 		text:"I'm pretty sure there's a lot more to life than being really, really, ridiculously good looking. And I plan on finding out what that is.",
 		choices:["Airplane!", "Billy Madison", "Zoolander", "Monty Python and the Holy Grail"],
-		correctAnswer: 2
+		correctAnswer: 2,
+		image: "images/zoolander.jpg"
 	},
 	{
 		text:"Exercise gives you endorphins.  Endorphins make you happy.  Happy people just don't shoot their husbands... they just don't.",
 		choices:["Legally Blonde", "The Fugitive", "Scary Movie", "Weird Science"],
-		correctAnswer: 0
+		correctAnswer: 0,
+		image: "images/elle-woods.gif"
 	},
 	{
 		text:"I just think it's better to have ideas.  I mean, you can change an idea.  Changing a belief is trickier.  People die for it.  People kill for it.",
 		choices:["The Da Vinci Code", "Dogma", "The Walking Dead", "Criminal Minds"],
-		correctAnswer: 1
+		correctAnswer: 1,
+		image: "images/rufus.jpg"
 	},
 	{
 		text:"We're on a mission from God.",
@@ -64,7 +71,7 @@ function renderApp(state){
 	} else if (state.route === "quiz"){
 		renderQuizPage(state);
 	} else if (state.route === "answered"){
-		answered();
+		answered(state);
 	}
 }
 
@@ -90,18 +97,25 @@ function renderStartPage(state){
 	})
 }
 
-function answered(){
-	$('next').click(function(event){
-		route.state = "quiz";
-		nextQuestion(state);
-		$('next').addClass('hidden');
-		$('submit').removeClass('hidden');
+function answered(state){
+	$('.next').click(function(){
+		state.route = "quiz";
+		$('.image').addClass('hidden');
+		$('.image img').removeAttr('src',"");
+		$('label').removeClass('wrong');
+		$('label').removeClass('right');
+		$('input').prop('checked', false);
+		$('.next').addClass('hidden');
+		$('.submit').removeClass('hidden');
 		renderApp(state);
 	})
 }
 
 function renderQuizPage(state){
 	nextQuestion(state);
+	var score = state.questionsCorrect;
+	var image = state.questions[state.questionNumber].image;
+	$('.score span').html(score + " ");
 	$('.quiz').submit(function(event){
 		event.preventDefault();
 		state.route = "answered";
@@ -110,7 +124,10 @@ function renderQuizPage(state){
 			$('label[for='+label).addClass('wrong');
 		} else {
 			$('label[for='+label).addClass('right');
+			state.questionsCorrect += 1;
 		}
+		$('.image img').attr('src', image);
+		$('.image').removeClass('hidden');
 		$('.submit').addClass('hidden');
 		$('.next').removeClass('hidden');
 		renderApp(state);
