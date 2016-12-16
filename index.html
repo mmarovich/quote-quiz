@@ -11,11 +11,13 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.1.1/normalize.css" rel="stylesheet">
   <!-- Stylesheets -->
   <link rel="stylesheet" type="text/css" href="main.css"/>
+  <link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah" rel="stylesheet">
+
 </head>
 <body>
   <header>
     <div class="title">
-      <h1 class="title-words">Movie/TV Quotes Quiz</h1>
+      <h1 class="title-words">Movie & TV Quotes Quiz</h1>
     </div>
   </header>
   
@@ -25,15 +27,26 @@
     </div>
     <form class="quiz hidden">
       <div class="score"><span></span>out of 5 correct</div>
-        <div class="question"><p></p></div>
-        <input id="radio1" type="radio" name="choices" value="0" required><label for="radio1"></label></input>
-        <input id="radio2" type="radio" name="choices" value="1" required><label for="radio2"></label></input>
-        <input id="radio3" type="radio" name="choices" value="2" required><label for="radio3"></label></input>
-        <input id="radio4" type="radio" name="choices" value="3" required><label for="radio4"></label></input>
+        <blockquote><div class="question"><p></p></div></blockquote>
+        <div class="block"><input id="radio1" type="radio" name="choices" value="0" required><label for="radio1"></label></input></div>
+        <div class="block"><input id="radio2" type="radio" name="choices" value="1" required><label for="radio2"></label></input></div>
+        <div class="block"><input id="radio3" type="radio" name="choices" value="2" required><label for="radio3"></label></input></div>
+        <div class="block"><input id="radio4" type="radio" name="choices" value="3" required><label for="radio4"></label></input></div>
         <input type="submit" class="submit" name="isItRight"></input>
     </form>
     <div class="next hidden"><button type="button">Next</button></div>
     <div class="image hidden"><img width="500"></div>
+
+    <div class="final hidden">
+      <h2>Guess What?  You have a final Score of <span class="percentCorrect"></span></h2>
+      <h3 class="hundred hidden"><span>A++ </span><br>Holy Crap!  You've either done this quiz before, or you are just simply amazing.  Actually, if you've done this quiz before, you're amazing anyway.  Keep on keepin' on!</h3>
+      <h3 class="eighty hidden"><span>B </span><br>Look, everyone makes mistakes, and you only made one.</h3>
+      <h3 class="sixty hidden"><span>C </span><br>Hey, this is probably the best place to be.  You've seen some movies, but not so many movies that you've effectively lost all social skills.  But I'm going to level with you.  This is really important stuff to know. It builds character.</h3>
+      <h3 class="forty hidden"><span>D </span><br>Meh. Most of these are good movies, so you should go watch them... with some friends... with some popcorn... and some General Tso's.  Or you could just retake this quiz over and over until you can pretend like you know all the answers.  But that definitely wouldn't be as fun as watching the movies.</h3>
+      <h3 class="twenty hidden"><span>F </span><br>So you're not a movie person.  I get it. You have a "life."  You think you're better than me?  Whatever.</h3>
+      <h3 class="zero hidden"><span>F-- </span><br>Statistically, you had a 25% chance to get each question correct, which means that it's unlikely you got here without actually trying to lose.  If that's not the case, I'm sorry... so... so sorry.</h3>
+      <div class="playAgain hidden"><button type="button">Play Again!</button></div>
+
   </main>
 
   <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
