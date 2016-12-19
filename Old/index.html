@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Max's Portfolio</title>
+
+  <meta charset="utf-8"/>
+  <meta name="Movie/TV Quotes Quiz" content="Test Your Senseless Pop-culture Knowledge" keywords="Movie, TV, Quotes, Quiz"/>
+  <!-- Responsive viewport tag, tells small screens that it's responsive -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Normalize.css, a cross-browser reset file -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.1.1/normalize.css" rel="stylesheet">
+  <!-- Stylesheets -->
+  <link rel="stylesheet" type="text/css" href="main.css"/>
+</head>
+<body>
+  <header>
+    <div class="title">
+      <h1 class="title-words">Movie/TV Quotes Quiz</h1>
+    </div>
+  </header>
+  
+  <main>
+    <div class="start">
+      <button type="button">Start</button>
+    </div>
+    <form class="quiz hidden">
+        <div class="question"><p></p></div>
+        <input id="radio1" type="radio" name="choices" required><label for="radio1"></label></input>
+        <input id="radio2" type="radio" name="choices" required><label for="radio2"></label></input>
+        <input id="radio3" type="radio" name="choices" required><label for="radio3"></label></input>
+        <input id="radio4" type="radio" name="choices" required><label for="radio4"></label></input>
+        <input type="submit" name="isItRight"></input>
+    </form>
+  </main>
+
+  <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+  <script src="app.js"></script>
+</body>

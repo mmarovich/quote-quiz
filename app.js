@@ -7,7 +7,7 @@ var state = {
 		image: "images/ferris-bueller.gif"
 	},
 	{
-		text:"If we're going to be damned, let's be damned for what we really are",
+		text:"If we're going to be damned, let's be damned for what we really are.",
 		choices: ["Braveheart", "House of 1000 corpses", "The Walking Dead", "Star Trek; The Next Generation"],
 		correctAnswer: 3,
 		image: "images/Jean-Luc-Picard.jpg"
@@ -59,6 +59,92 @@ var state = {
 		choices:["Real Genius", "Weird Science", "3 Idiots", "12 Angry Men"],
 		correctAnswer: 2,
 		image: "images/3-idiots-exam-o.gif"
+	},
+	{
+		text:"There could be a mathematical explanation for how bad your tie is.",
+		choices:["A Beautiful Mind", "Good Will Hunting", "The Green Mile", "The Matrix"],
+		correctAnswer: 0,
+		image: "images/ABeautifulMind.gif"
+	},
+	{
+		text:"This job would be great if it wasn't for the fucking customers.",
+		choices:["Waiting", "Office Space", "Billy Madison", "Clerks"],
+		correctAnswer: 3,
+		image: "images/Clerks.gif"
+	},
+	{
+		text:"Be excellent to each other.  Party on, dudes!",
+		choices:["Wayne's World", "Bill & Ted's Excellent Adventure", "Dude, Where's My Car?", "Jay & Silent Bob Strike Back"],
+		correctAnswer: 1,
+		image: "images/BillTed.gif"
+	},
+	{
+		text:"I guess it comes down to a simple choice, really.  Get busy living or get busy dying.",
+		choices:["The Shawshank Redemption", "Bruce Almighty", "Seven", "The Dark Knight"],
+		correctAnswer: 0,
+		image: "images/shawshank.gif"
+	},
+	{
+		text:"Frankly, my dear, I don't give a damn.",
+		choices:["Casablanca", "Gone With The Wind", "Yankee Doodle Dandy", "The Godfather"],
+		correctAnswer: 1,
+		image: "images/Frankly.gif"
+	},
+	{
+		text:"Here's looking at you kid.",
+		choices:["Gone With The Wind", "A Streetcar Named Desire", "Casablanca", "West Side Story"],
+		correctAnswer: 2,
+		image: "images/Casablanca.gif"
+	},
+	{
+		text:"What we have here is a failure to communicate.",
+		choices:["Good Morning, Vietnam!", "Stripes", "The Treasure of the Sierra Madre", "Cool Hand Luke"],
+		correctAnswer: 3,
+		image: "images/CoolHand.gif"
+	},
+	{
+		text:"You can't handle the truth!",
+		choices:["A Few Good Men", "Jerry Maguire", "The Shining", "One Flew Over The Cuckoo's Nest"],
+		correctAnswer: 0,
+		image: "images/TheJuith.jpg"
+	},
+	{
+		text:"Stella!!!!!!!!",
+		choices:["Gone With The Wind", "A Streetcar Named Desire", "Rebel Without A Cause", "The Godfather"],
+		correctAnswer: 1,
+		image: "images/stella.gif"
+	},
+	{
+		text:"There's no crying in baseball!",
+		choices:["Major League", "The Sandlot", "A League of Their Own", "Rookie Of The Year"],
+		correctAnswer: 2,
+		image: "images/NoCrying.gif"
+	},
+	],
+	grades: [
+	{
+		grade:"A++",
+		comment:"Holy Crap!  You've either done this quiz before, or you are just simply amazing.  Actually, if you've done this quiz before, you're amazing anyway.  Keep on keepin' on!"
+	},
+	{
+		grade:"B",
+		comment:"Look, everyone makes mistakes, and you only made one."
+	},
+	{
+		grade:"C",
+		comment:"Hey, this is probably the best place to be.  You've seen some movies, but not so many movies that you've effectively lost all social skills.  But I'm going to level with you.  This is really important stuff to know. It builds character."
+	},
+	{
+		grade:"D",
+		comment:"Meh. Most of these are good movies, so you should go watch them... with some friends... with some popcorn... and some General Tso's.  Or you could just retake this quiz over and over until you can pretend like you know all the answers.  But that definitely wouldn't be as fun as watching the movies."
+	},
+	{
+		grade:"F",
+		comment:"So you're not a movie person.  I get it. You have a 'life.'  You think you're better than me?  Whatever."
+	},
+	{
+		grade:"F--",
+		comment:"Statistically, you had a 25% chance to get each question correct, which means that it's unlikely you got here without actually trying to lose.  If that's not the case, I'm sorry... so... so sorry."
 	}
 	],
 	route:"begin",
@@ -79,18 +165,26 @@ function renderApp(state){
 		state.route = "quiz";
 		$('.start').addClass('hidden');
 		$('.quiz').removeClass('hidden');
+		$('.submit').removeClass('hidden');
 		renderApp(state);
 	})
 	$('.next').click(function(){
+		if (state.questionsUsed.length < 5){
 		state.route = "quiz";
-		$('.image').addClass('hidden');
-		$('.image img').removeAttr('src',"");
-		$('label').removeClass('wrong');
-		$('label').removeClass('right');
-		$('input').prop('checked', false);
-		$('.next').addClass('hidden');
-		$('.submit').removeClass('hidden');
+			$('.image').addClass('hidden');
+			$('.image img').removeAttr('src',"");
+			$('label').removeClass('wrong');
+			$('label').removeClass('right');
+			$('input').prop('checked', false);
+			$('.next').addClass('hidden');
+			$('.submit').removeClass('hidden');
 		renderApp(state);
+		} else {
+			$('.next').addClass('hidden');
+			$('.image').addClass('hidden');
+			$('.image img').removeAttr('src',"");
+			renderFinalScore(state);
+		}
 	})
 	$('.quiz').submit(function(event){
 		event.preventDefault();
@@ -105,15 +199,11 @@ function renderApp(state){
 			state.questionsCorrect += 1;
 		}
 		var score = state.questionsCorrect;
-		if (state.questionsUsed.length < 5){
 		$('.score span').html(score + " ");
 		$('.image img').attr('src', image);
 		$('.image').removeClass('hidden');
 		$('.submit').addClass('hidden');
 		$('.next').removeClass('hidden');
-		} else {
-			renderFinalScore(state);
-		}
 	});
 	$('.playAgain').click(function(){
 		state.route = "begin";
@@ -132,9 +222,9 @@ function renderStartPage(state){
 }
 
 function renderQuizPage(state){
-	state.questionNumber = Math.floor(Math.random() * 10);
+	state.questionNumber = Math.floor(Math.random() * 20);
 	while (state.questionsUsed.indexOf(state.questionNumber)!==-1){
-  	state.questionNumber = Math.floor(Math.random() * 10);
+  	state.questionNumber = Math.floor(Math.random() * 20);
   }
 	$('.question').html(state.questions[state.questionNumber].text);
   	$('label[for=radio1]').html(state.questions[state.questionNumber].choices[0]);
@@ -154,16 +244,28 @@ function renderFinalScore(state){
 	$('.playAgain').removeClass('hidden');
 	if (state.questionsCorrect === 5){
 		$('.hundred').removeClass('hidden');
+		$('.a').html(state.grades[0].grade);
+		$('.hundred').html(state.grades[0].comment);
 	} else if (state.questionsCorrect === 4){
 		$('.eighty').removeClass('hidden');
+		$('.b').html(state.grades[1].grade);
+		$('.eighty').html(state.grades[1].comment);
 	} else if (state.questionsCorrect === 3){
 		$('.sixty').removeClass('hidden');
+		$('.c').html(state.grades[2].grade);
+		$('.sixty').html(state.grades[2].comment);
 	} else if (state.questionsCorrect === 2){
 		$('.forty').removeClass('hidden');
+		$('.d').html(state.grades[3].grade);
+		$('.forty').html(state.grades[3].comment);
 	} else if (state.questionsCorrect === 1){
 		$('.twenty').removeClass('hidden');
+		$('.f').html(state.grades[4].grade);
+		$('.twenty').html(state.grades[4].comment);
 	} else if (state.questionsCorrect === 0){
 		$('.zero').removeClass('hidden');
+		$('.ff').html(state.grades[5].grade);
+		$('.zero').html(state.grades[5].comment);
 	}
 }
 

@@ -12,6 +12,7 @@ body {
 
 main {
 	margin: auto;
+	width: 500px;
 }
 
 h1 {
@@ -114,6 +115,10 @@ form input {
 	text-align: center;
 }
 
+.image img{
+	width: 400px;
+}
+
 .hidden {
 	display: none;
 }
@@ -126,37 +131,24 @@ h2 {
 h3 {
 	text-align: center;
 	font-size: 2em;
-}
-
-h3 span {
-	font-size: 4em;
-}
-
-h3 {
 	color: darkblue;
 }
 
-.hundred span {
+.grade {
+	font-size: 5em;
+	font-weight: bold;
+	text-align: center;
+}
+
+.a, .b {
 	color: lightgreen;
 }
 
-.eighty span {
-	color: lightgreen;
-}
-
-.sixty span {
+.c, .d {
 	color: brown;
 }
 
-.forty span {
-	color: brown;
-}
-
-.twenty {
-	color: red;
-}
-
-.zero {
+.f, .ff {
 	color: red;
 }
 

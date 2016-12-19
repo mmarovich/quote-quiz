@@ -1,0 +1,38 @@
+* {
+  box-sizing: border-box;
+}
+
+h1 {
+	text-align: center;
+}
+
+.quiz {
+	text-align: center;
+}
+
+form input {
+	margin: auto;
+	display:block;
+	text-align: center;
+}
+
+input[type="radio"] {
+  display: inline-block;
+  margin: 10px 3px 10px 10px;
+}
+
+.start {
+	text-align: center;
+}
+
+.hidden {
+	display: none;
+}
+
+.right {
+	background-color: green;
+}
+
+.wrong {
+	background-color: red;
+}
