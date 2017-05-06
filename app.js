@@ -161,6 +161,9 @@ function renderApp(state){
 		renderQuizPage(state);
 	}
 }
+
+// Initiates the quiz, changing the state and unhiding classes.
+
 	$('.start').click(function(){
 		state.route = "quiz";
 		$('.start').addClass('hidden');
@@ -168,6 +171,10 @@ function renderApp(state){
 		$('.submit').removeClass('hidden');
 		renderApp(state);
 	})
+
+// hides the current question to make way for the next question.
+// If you're on question 5, it will give you your final score.
+
 	$('.next').click(function(){
 		if (state.questionsUsed.length < 5){
 		state.route = "quiz";
@@ -186,6 +193,10 @@ function renderApp(state){
 			renderFinalScore(state);
 		}
 	})
+
+// When the answer is submitted, this will tell you whether it was
+// correct, and will keep track of the score in the state.
+
 	$('.quiz').submit(function(event){
 		event.preventDefault();
 		var image = state.questions[state.questionNumber].image;
@@ -205,11 +216,16 @@ function renderApp(state){
 		$('.submit').addClass('hidden');
 		$('.next').removeClass('hidden');
 	});
+
+// Initiates a reset of the state and render of start page.
+
 	$('.playAgain').click(function(){
 		state.route = "begin";
 		state.questionsUsed = [];
 		renderApp(state);
 	})
+
+// Initial quiz rendering.  Resets the state.
 
 function renderStartPage(state){
 	state.questionsCorrect = 0;
@@ -220,6 +236,8 @@ function renderStartPage(state){
 	$('.final').addClass('hidden');
 	$('.final h3').addClass('hidden');
 }
+
+// generates a random, unused question from the state.
 
 function renderQuizPage(state){
 	state.questionNumber = Math.floor(Math.random() * 20);
@@ -233,6 +251,9 @@ function renderQuizPage(state){
   	$('label[for=radio4]').html(state.questions[state.questionNumber].choices[3]);
   	state.questionsUsed.push(state.questionNumber);
 };
+
+// A section in the state has been made to generate a custom
+// message depending on the final score. :)
 
 function renderFinalScore(state){
 	$('.quiz').addClass('hidden');
